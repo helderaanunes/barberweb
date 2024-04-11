@@ -50,10 +50,15 @@ const Toasts = React.lazy(() => import('./views/notifications/toasts/Toasts'))
 
 const Widgets = React.lazy(() => import('./views/widgets/Widgets'))
 const CategoriaAdd = React.lazy(() => import('./views/categoria/Add'))
+
+const UsuarioAdd = React.lazy(() => import('./views/usuario/Add'))
+const UsuarioListar = React.lazy(() => import('./views/usuario/Listar'))
 const routes = [
   { path: '/', exact: true, name: 'Home' },
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
   { path: '/categoria/add', name: 'Adicionar Categoria', element: CategoriaAdd },
+  { path: '/usuario/add', name: 'Adicionar Usuario', element: UsuarioAdd },
+  { path: '/usuario/listar', name: 'Listar Usuarios', element: UsuarioListar },
   { path: '/theme', name: 'Theme', element: Colors, exact: true },
   { path: '/theme/colors', name: 'Colors', element: Colors },
   { path: '/theme/typography', name: 'Typography', element: Typography },
