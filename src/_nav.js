@@ -1,6 +1,5 @@
-import React from 'react'
-import CIcon from '@coreui/icons-react'
 import {
+  cilAddressBook,
   cilBell,
   cilCalculator,
   cilCart,
@@ -14,7 +13,9 @@ import {
   cilSpeedometer,
   cilStar,
 } from '@coreui/icons'
+import CIcon from '@coreui/icons-react'
 import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
+import React from 'react'
 
 const _nav = [
   {
@@ -43,6 +44,24 @@ const _nav = [
         name: 'Listar',
         to: '/produto/list',
       }
+    ],
+  },
+  {
+    component: CNavGroup,
+    name: 'Agendamento',
+    to: '/agendamento',
+    icon: <CIcon icon={cilAddressBook} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'Agendar',
+        to: '/agendamento/agenda_add',
+      },
+      {
+        component: CNavItem,
+        name: 'Agenda Completa',
+        to: '/agendamento/agenda_list',
+      },
     ],
   },
   {

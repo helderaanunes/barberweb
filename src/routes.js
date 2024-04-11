@@ -50,10 +50,14 @@ const Toasts = React.lazy(() => import('./views/notifications/toasts/Toasts'))
 
 const Widgets = React.lazy(() => import('./views/widgets/Widgets'))
 const CategoriaAdd = React.lazy(() => import('./views/categoria/Add'))
+const AgendaAdd = React.lazy(() => import('./views/agendamento/AgendaAdd'))
+const AgendaListar = React.lazy(() => import('./views/agendamento/AgendaListar'))
 const routes = [
   { path: '/', exact: true, name: 'Home' },
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
   { path: '/categoria/add', name: 'Adicionar Categoria', element: CategoriaAdd },
+  { path: '/agendamento/agenda_add', name: 'Agendar', element: AgendaAdd },
+  { path: '/agendamento/agenda_list', name: 'Agenda completa', element: AgendaListar },
   { path: '/theme', name: 'Theme', element: Colors, exact: true },
   { path: '/theme/colors', name: 'Colors', element: Colors },
   { path: '/theme/typography', name: 'Typography', element: Typography },
