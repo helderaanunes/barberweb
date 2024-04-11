@@ -1,6 +1,7 @@
 import React from 'react'
 import CIcon from '@coreui/icons-react'
 import {
+  cilBasket,
   cilBell,
   cilCalculator,
   cilCart,
@@ -31,7 +32,7 @@ const _nav = [
     component: CNavGroup,
     name: 'Produto',
     to: '/produto',
-    icon: <CIcon icon={cilCart} customClassName="nav-icon" />,
+    icon: <CIcon icon={cilBasket} customClassName="nav-icon" />,
     items: [
       {
         component: CNavItem,
@@ -41,7 +42,7 @@ const _nav = [
       {
         component: CNavItem,
         name: 'Listar',
-        to: '/produto/list',
+        to: '/produto/listar',
       }
     ],
   },
