@@ -8,6 +8,7 @@ import {
   cilCursor,
   cilDescription,
   cilDrop,
+  cilFolder,
   cilNotes,
   cilPencil,
   cilPuzzle,
@@ -29,20 +30,20 @@ const _nav = [
   },
   {
     component: CNavGroup,
-    name: 'Produto',
-    to: '/produto',
-    icon: <CIcon icon={cilCart} customClassName="nav-icon" />,
+    name: 'Ordem Serviço',
+    to: '/ordemServico',
+    icon: <CIcon icon={cilFolder} customClassName="nav-icon" />,
     items: [
       {
         component: CNavItem,
-        name: 'Cadastrar',
-        to: '/produto/add',
+        name: 'Adicionar',
+        to: '/ordemServico/add',
       },
       {
         component: CNavItem,
         name: 'Listar',
-        to: '/produto/list',
-      }
+        to: '/ordemServico/list',
+      },
     ],
   },
   {

@@ -49,11 +49,14 @@ const Modals = React.lazy(() => import('./views/notifications/modals/Modals'))
 const Toasts = React.lazy(() => import('./views/notifications/toasts/Toasts'))
 
 const Widgets = React.lazy(() => import('./views/widgets/Widgets'))
-const CategoriaAdd = React.lazy(() => import('./views/categoria/Add'))
+const OrdemServicoAdd = React.lazy(() => import('./views/ordemServico/Add'))
+const OrdemServicoList = React.lazy(() => import('./views/ordemServico/List'))
+
 const routes = [
   { path: '/', exact: true, name: 'Home' },
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
-  { path: '/categoria/add', name: 'Adicionar Categoria', element: CategoriaAdd },
+  { path: '/ordemServico/add', name: 'Adicionar Ordem Serviço', element: OrdemServicoAdd },
+  { path: '/ordemServico/list', name: 'Listar Ordem Serviço', element: OrdemServicoList },
   { path: '/theme', name: 'Theme', element: Colors, exact: true },
   { path: '/theme/colors', name: 'Colors', element: Colors },
   { path: '/theme/typography', name: 'Typography', element: Typography },
