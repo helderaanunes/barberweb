@@ -42,7 +42,25 @@ const _nav = [
         component: CNavItem,
         name: 'Listar',
         to: '/produto/list',
-      }
+      },
+    ],
+  },
+  {
+    component: CNavGroup,
+    name: 'Categoria',
+    to: '/categoria',
+    icon: <CIcon icon={cilStar} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'Adicionar',
+        to: '/categoria/add',
+      },
+      {
+        component: CNavItem,
+        name: 'Listar',
+        to: '/categoria/list',
+      },
     ],
   },
   {
