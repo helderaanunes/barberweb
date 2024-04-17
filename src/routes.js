@@ -65,7 +65,6 @@ const FluxoFinanceiroList = React.lazy(() => import('./views/fluxoFinanceiro/Lis
 const ClienteAdd = React.lazy(() => import('./views/cliente/Add'))
 const ClienteList = React.lazy(() => import('./views/cliente/List'))
 
-
 const routes = [
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
   { path: '/categoria/list', name: 'Listar Categoria', element: CategoriaList },
@@ -80,6 +79,7 @@ const routes = [
   { path: '/venda/Add', name: 'Adicionar Venda', element: VendaAdd },
   { path: '/venda/List', name: 'Listar Vendas', element: VendaList },
   { path: '/cliente/add', name: 'Adicionar Cliente', element: ClienteAdd },
+
   { path: '/cliente/list', name: 'Listar Clientes', element: ClienteList },
   { path: '/fluxoFinanceiro/add', name: 'Adicionar FluxoFinanceiro', element: FluxoFinanceiroAdd },
   { path: '/fluxoFinaceiro/list', name: 'Listar FluxoFinanceiro', element: FluxoFinanceiroList },
