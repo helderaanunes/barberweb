@@ -49,14 +49,17 @@ const Modals = React.lazy(() => import('./views/notifications/modals/Modals'))
 const Toasts = React.lazy(() => import('./views/notifications/toasts/Toasts'))
 
 const Widgets = React.lazy(() => import('./views/widgets/Widgets'))
+const CategoriaAdd = React.lazy(() => import('./views/categoria/Add'))
+const FluxoFinanceiroAdd = React.lazy(() => import('./views/fluxoFinanceiro/Add'))
+const FluxoFinanceiroList = React.lazy(() => import('./views/fluxoFinanceiro/List'))
 const ClienteAdd = React.lazy(() => import('./views/cliente/Add'))
 const ClienteList = React.lazy(() => import('./views/cliente/List'))
 const routes = [
-  { path: '/', exact: true, name: 'Home' },
-  { path: '/dashboard', name: 'Dashboard', element: Dashboard },
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
   { path: '/cliente/add', name: 'Adicionar Cliente', element: ClienteAdd },
   { path: '/cliente/list', name: 'Listar Clientes', element: ClienteList },
+  { path: '/fluxoFinanceiro/add', name: 'Adicionar FluxoFinanceiro', element: FluxoFinanceiroAdd },
+  { path: '/fluxoFinaceiro/list', name: 'Listar FluxoFinanceiro', element: FluxoFinanceiroList },
   { path: '/theme', name: 'Theme', element: Colors, exact: true },
   { path: '/theme/colors', name: 'Colors', element: Colors },
   { path: '/theme/typography', name: 'Typography', element: Typography },
