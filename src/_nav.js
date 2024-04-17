@@ -47,6 +47,7 @@ const _nav = [
   },
   {
     component: CNavGroup,
+
     name: 'Categoria',
     to: '/categoria',
     icon: <CIcon icon={cilStar} customClassName="nav-icon" />,
@@ -59,7 +60,26 @@ const _nav = [
       {
         component: CNavItem,
         name: 'Listar',
+
         to: '/categoria/list',
+      },
+    ],
+  },
+  {
+    component: CNavGroup,
+    name: 'FluxoFinanceiro',
+    to: '/fluxoFinanceiro',
+    icon: <CIcon icon={cilCart} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'Cadastrar',
+        to: '/fluxoFinanceiro/add',
+      },
+      {
+        component: CNavItem,
+        name: 'Listar',
+        to: '/fluxoFinanceiro/list',
       },
     ],
   },

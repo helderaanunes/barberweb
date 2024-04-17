@@ -51,10 +51,13 @@ const Toasts = React.lazy(() => import('./views/notifications/toasts/Toasts'))
 const Widgets = React.lazy(() => import('./views/widgets/Widgets'))
 const CategoriaAdd = React.lazy(() => import('./views/categoria/Add'))
 const CategoriaList = React.lazy(() => import('./views/categoria/List'))
-
+const FluxoFinanceiroAdd = React.lazy(() => import('./views/fluxoFinanceiro/Add'))
+const FluxoFinanceiroList = React.lazy(() => import('./views/fluxoFinanceiro/List'))
 const routes = [
   { path: '/', exact: true, name: 'Home' },
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
+  { path: '/fluxoFinanceiro/add', name: 'Adicionar FluxoFinanceiro', element: FluxoFinanceiroAdd },
+  { path: '/fluxoFinaceiro/list', name: 'Listar FluxoFinanceiro', element: FluxoFinanceiroList },
   { path: '/categoria/add', name: 'Adicionar Categoria', element: CategoriaAdd },
   { path: '/categoria/list', name: 'Listar Categoria', element: CategoriaList },
   { path: '/theme', name: 'Theme', element: Colors, exact: true },
