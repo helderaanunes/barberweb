@@ -13,19 +13,19 @@ import {
 } from '@coreui/react'
 import { DocsExample } from 'src/components'
 
-const FormControl = () => {
+const AddOrdemServico = () => {
   return (
     <CRow>
       <CCol xs={12}>
         <CCard className="mb-4">
           <CCardHeader>
-            <strong>Adicionar Categoria</strong>
+            <strong>Adicionar Ordem Serviço</strong>
           </CCardHeader>
           <CCardBody>
             <CForm>
               <div className="mb-3">
-                <CFormLabel htmlFor="nome">Nome</CFormLabel>
-                <CFormInput type="text" id="nome" placeholder="Nome" />
+                <CFormLabel htmlFor="desconto">Desconto</CFormLabel>
+                <CFormInput type="number" id="desconto" placeholder="Desconto" />
               </div>
             </CForm>
           </CCardBody>
@@ -35,4 +35,4 @@ const FormControl = () => {
   )
 }
 
-export default FormControl
+export default AddOrdemServico

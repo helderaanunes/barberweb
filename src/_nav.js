@@ -1,6 +1,6 @@
-import React from 'react'
-import CIcon from '@coreui/icons-react'
 import {
+  cilAddressBook,
+  cilBasket,
   cilBell,
   cilCalculator,
   cilCart,
@@ -8,6 +8,7 @@ import {
   cilCursor,
   cilDescription,
   cilDrop,
+  cilFolder,
   cilNotes,
   cilPencil,
   cilPuzzle,
@@ -15,7 +16,9 @@ import {
   cilStar,
   cilUser,
 } from '@coreui/icons'
+import CIcon from '@coreui/icons-react'
 import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
+import React from 'react'
 
 const _nav = [
   {
@@ -27,6 +30,24 @@ const _nav = [
       color: 'info',
       text: 'NEW',
     },
+  },
+  {
+    component: CNavGroup,
+    name: 'Ordem Serviço',
+    to: '/ordemServico',
+    icon: <CIcon icon={cilFolder} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'Cadastrar',
+        to: '/ordemServico/add',
+      },
+      {
+        component: CNavItem,
+        name: 'Listar',
+        to: '/ordemServico/list',
+      },
+    ],
   },
   {
     component: CNavGroup,
@@ -54,13 +75,33 @@ const _nav = [
     items: [
       {
         component: CNavItem,
-        name: 'Cadastrar',
-        to: '/produto/add',
+        name: 'Adicionar',
+        to: '/ordemServico/add',
       },
       {
         component: CNavItem,
         name: 'Listar',
         to: '/produto/list',
+      },
+    ],
+  },
+  {
+    component: CNavGroup,
+
+    name: 'Categoria',
+    to: '/categoria',
+    icon: <CIcon icon={cilStar} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'Adicionar',
+        to: '/categoria/add',
+      },
+      {
+        component: CNavItem,
+        name: 'Listar',
+
+        to: '/categoria/list',
       },
     ],
   },
@@ -90,13 +131,87 @@ const _nav = [
     items: [
       {
         component: CNavItem,
-        name: 'Cadastrar',
+        name: 'Add',
         to: '/servico/add',
       },
       {
         component: CNavItem,
         name: 'Listar',
         to: '/servico/list',
+      },
+    ],
+  },
+  {
+    component: CNavGroup,
+    name: 'Categoria',
+    to: '/categoria',
+    icon: <CIcon icon={cilStar} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'Adicionar',
+        to: '/categoria/add',
+      },
+      {
+        component: CNavItem,
+        name: 'Listar',
+        to: '/categoria/list',
+      },
+    ],
+  },
+  {
+    component: CNavGroup,
+    name: 'Usuario',
+    to: '/usuario',
+    icon: <CIcon icon={cilUser} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'Cadastrar',
+        to: '/usuario/add',
+      },
+      {
+        component: CNavItem,
+        name: 'Listar',
+        to: '/usuario/list',
+      },
+    ],
+  },
+  {
+    component: CNavGroup,
+    name: 'Venda',
+    to: '/venda',
+
+    icon: <CIcon icon={cilBasket} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'Cadastrar',
+        to: '/venda/add',
+      },
+      {
+        component: CNavItem,
+        name: 'Listar',
+        to: '/venda/list',
+      },
+    ],
+  },
+
+  {
+    component: CNavGroup,
+    name: 'Agendamento',
+    to: '/agendamento',
+    icon: <CIcon icon={cilAddressBook} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'Agendar',
+        to: '/agendamento/agenda_add',
+      },
+      {
+        component: CNavItem,
+        name: 'Agenda Completa',
+        to: '/agendamento/agenda_list',
       },
     ],
   },

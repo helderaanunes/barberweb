@@ -19,15 +19,19 @@ const FormControl = () => {
       <CCol xs={12}>
         <CCard className="mb-4">
           <CCardHeader>
-            <strong>Adicionar Categoria</strong>
+            <strong>Cadastrar Venda</strong>
           </CCardHeader>
           <CCardBody>
-            <CForm>
-              <div className="mb-3">
-                <CFormLabel htmlFor="nome">Nome</CFormLabel>
-                <CFormInput type="text" id="nome" placeholder="Nome" />
-              </div>
-            </CForm>
+              <CForm>
+                <div className="mb-3">
+                  <CFormLabel htmlFor="Desconto">Desconto</CFormLabel>
+                  <CFormInput
+                    type="namber"
+                    id="desconto"
+                    placeholder="Desconto"
+                  />
+                </div>
+              </CForm>
           </CCardBody>
         </CCard>
       </CCol>
