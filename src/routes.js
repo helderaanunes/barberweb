@@ -49,7 +49,15 @@ const Modals = React.lazy(() => import('./views/notifications/modals/Modals'))
 const Toasts = React.lazy(() => import('./views/notifications/toasts/Toasts'))
 
 const Widgets = React.lazy(() => import('./views/widgets/Widgets'))
+const OrdemServicoAdd = React.lazy(() => import('./views/ordemServico/Add'))
+const OrdemServicoList = React.lazy(() => import('./views/ordemServico/List'))
+
+const ProdutoAdd = React.lazy(() => import('./views/produto/Add'))
+const ProdutoListar = React.lazy(() => import('./views/produto/Listar'))
+
 const CategoriaAdd = React.lazy(() => import('./views/categoria/Add'))
+const ServicoAdd = React.lazy(() => import('./views/servico/Add.js'))
+const ServicoList = React.lazy(() => import('./views/servico/List.js'))
 
 const UsuarioAdd = React.lazy(() => import('./views/usuario/Add'))
 const UsuarioListar = React.lazy(() => import('./views/usuario/Listar'))
@@ -67,8 +75,15 @@ const ClienteList = React.lazy(() => import('./views/cliente/List'))
 
 const routes = [
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
+
+  { path: '/ordemServico/add', name: 'Adicionar Ordem Serviço', element: OrdemServicoAdd },
+  { path: '/ordemServico/list', name: 'Listar Ordem Serviço', element: OrdemServicoList },
+
   { path: '/categoria/list', name: 'Listar Categoria', element: CategoriaList },
   { path: '/categoria/add', name: 'Adicionar Categoria', element: CategoriaAdd },
+
+  { path: '/produto/Add', name: 'Adicionar Produto', element: ProdutoAdd },
+  { path: '/produto/Listar', name: 'Listar Produtos', element: ProdutoListar },
 
   { path: '/usuario/add', name: 'Adicionar Usuario', element: UsuarioAdd },
   { path: '/usuario/listar', name: 'Listar Usuarios', element: UsuarioListar },
@@ -83,6 +98,8 @@ const routes = [
   { path: '/cliente/list', name: 'Listar Clientes', element: ClienteList },
   { path: '/fluxoFinanceiro/add', name: 'Adicionar FluxoFinanceiro', element: FluxoFinanceiroAdd },
   { path: '/fluxoFinaceiro/list', name: 'Listar FluxoFinanceiro', element: FluxoFinanceiroList },
+  { path: '/Servico/add', name: 'Adicionar Serviço', element: ServicoAdd },
+  { path: '/Servico/list', name: 'Listar Serviço', element: ServicoList },
   { path: '/theme', name: 'Theme', element: Colors, exact: true },
   { path: '/theme/colors', name: 'Colors', element: Colors },
   { path: '/theme/typography', name: 'Typography', element: Typography },

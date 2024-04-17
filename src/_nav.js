@@ -8,6 +8,7 @@ import {
   cilCursor,
   cilDescription,
   cilDrop,
+  cilFolder,
   cilNotes,
   cilPencil,
   cilPuzzle,
@@ -32,6 +33,24 @@ const _nav = [
   },
   {
     component: CNavGroup,
+    name: 'Ordem Serviço',
+    to: '/ordemServico',
+    icon: <CIcon icon={cilFolder} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'Cadastrar',
+        to: '/ordemServico/add',
+      },
+      {
+        component: CNavItem,
+        name: 'Listar',
+        to: '/ordemServico/list',
+      },
+    ],
+  },
+  {
+    component: CNavGroup,
     name: 'Cliente',
     to: '/cliente',
     icon: <CIcon icon={cilUser} customClassName="nav-icon" />,
@@ -52,17 +71,17 @@ const _nav = [
     component: CNavGroup,
     name: 'Produto',
     to: '/produto',
-    icon: <CIcon icon={cilCart} customClassName="nav-icon" />,
+    icon: <CIcon icon={cilBasket} customClassName="nav-icon" />,
     items: [
       {
         component: CNavItem,
-        name: 'Cadastrar',
-        to: '/produto/add',
+        name: 'Adicionar',
+        to: '/ordemServico/add',
       },
       {
         component: CNavItem,
         name: 'Listar',
-        to: '/produto/list',
+        to: '/produto/listar',
       },
     ],
   },
@@ -101,6 +120,24 @@ const _nav = [
         component: CNavItem,
         name: 'Listar',
         to: '/fluxoFinanceiro/list',
+      },
+    ],
+  },
+  {
+    component: CNavGroup,
+    name: 'Servico',
+    to: '/servico',
+    icon: <CIcon icon={cilCart} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'Add',
+        to: '/servico/add',
+      },
+      {
+        component: CNavItem,
+        name: 'Listar',
+        to: '/servico/list',
       },
     ],
   },
