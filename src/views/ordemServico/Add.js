@@ -25,11 +25,7 @@ const AddOrdemServico = () => {
             <CForm>
               <div className="mb-3">
                 <CFormLabel htmlFor="desconto">Desconto</CFormLabel>
-                <CFormInput
-                  type="number"
-                  id="desconto"
-                  placeholder="Desconto"
-                />
+                <CFormInput type="number" id="desconto" placeholder="Desconto" />
               </div>
             </CForm>
           </CCardBody>
