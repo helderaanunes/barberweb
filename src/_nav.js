@@ -83,6 +83,24 @@ const _nav = [
     ],
   },
   {
+    component: CNavGroup,
+    name: 'Servico',
+    to: '/servico',
+    icon: <CIcon icon={cilCart} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'Cadastrar',
+        to: '/servico/add',
+      },
+      {
+        component: CNavItem,
+        name: 'Listar',
+        to: '/servico/list',
+      },
+    ],
+  },
+  {
     component: CNavTitle,
     name: 'Theme',
   },

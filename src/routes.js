@@ -50,16 +50,21 @@ const Toasts = React.lazy(() => import('./views/notifications/toasts/Toasts'))
 
 const Widgets = React.lazy(() => import('./views/widgets/Widgets'))
 const CategoriaAdd = React.lazy(() => import('./views/categoria/Add'))
+const ServicoAdd = React.lazy(() => import('./views/servico/Add.js'))
+const ServicoList = React.lazy(() => import('./views/servico/List.js'))
 const FluxoFinanceiroAdd = React.lazy(() => import('./views/fluxoFinanceiro/Add'))
 const FluxoFinanceiroList = React.lazy(() => import('./views/fluxoFinanceiro/List'))
 const ClienteAdd = React.lazy(() => import('./views/cliente/Add'))
 const ClienteList = React.lazy(() => import('./views/cliente/List'))
+
 const routes = [
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
   { path: '/cliente/add', name: 'Adicionar Cliente', element: ClienteAdd },
   { path: '/cliente/list', name: 'Listar Clientes', element: ClienteList },
   { path: '/fluxoFinanceiro/add', name: 'Adicionar FluxoFinanceiro', element: FluxoFinanceiroAdd },
   { path: '/fluxoFinaceiro/list', name: 'Listar FluxoFinanceiro', element: FluxoFinanceiroList },
+  { path: '/Servico/add', name: 'Adicionar Serviço', element: ServicoAdd},
+  { path: '/Servico/list', name: 'Listar Serviço', element: ServicoList},
   { path: '/theme', name: 'Theme', element: Colors, exact: true },
   { path: '/theme/colors', name: 'Colors', element: Colors },
   { path: '/theme/typography', name: 'Typography', element: Typography },
