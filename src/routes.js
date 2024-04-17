@@ -51,9 +51,9 @@ const Toasts = React.lazy(() => import('./views/notifications/toasts/Toasts'))
 const Widgets = React.lazy(() => import('./views/widgets/Widgets'))
 const CategoriaAdd = React.lazy(() => import('./views/categoria/Add'))
 
-
 const UsuarioAdd = React.lazy(() => import('./views/usuario/Add'))
 const UsuarioListar = React.lazy(() => import('./views/usuario/Listar'))
+
 const AgendaAdd = React.lazy(() => import('./views/agendamento/AgendaAdd'))
 const AgendaListar = React.lazy(() => import('./views/agendamento/AgendaListar'))
 
@@ -83,7 +83,6 @@ const routes = [
   { path: '/cliente/list', name: 'Listar Clientes', element: ClienteList },
   { path: '/fluxoFinanceiro/add', name: 'Adicionar FluxoFinanceiro', element: FluxoFinanceiroAdd },
   { path: '/fluxoFinaceiro/list', name: 'Listar FluxoFinanceiro', element: FluxoFinanceiroList },
-
   { path: '/theme', name: 'Theme', element: Colors, exact: true },
   { path: '/theme/colors', name: 'Colors', element: Colors },
   { path: '/theme/typography', name: 'Typography', element: Typography },

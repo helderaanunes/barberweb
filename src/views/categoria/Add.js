@@ -25,18 +25,12 @@ const FormControl = () => {
             <CForm>
               <div className="mb-3">
                 <CFormLabel htmlFor="nome">Nome</CFormLabel>
-                <CFormInput
-                  type="text"
-                  id="nome"
-                  placeholder="Nome"
-                />
+                <CFormInput type="text" id="nome" placeholder="Nome" />
               </div>
-
             </CForm>
           </CCardBody>
         </CCard>
       </CCol>
-
     </CRow>
   )
 }
