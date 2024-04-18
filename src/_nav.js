@@ -14,6 +14,7 @@ import {
   cilPuzzle,
   cilSpeedometer,
   cilStar,
+  cilTag,
   cilUser,
 } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
@@ -127,11 +128,11 @@ const _nav = [
     component: CNavGroup,
     name: 'Servico',
     to: '/servico',
-    icon: <CIcon icon={cilCart} customClassName="nav-icon" />,
+    icon: <CIcon icon={cilTag} customClassName="nav-icon" />,
     items: [
       {
         component: CNavItem,
-        name: 'Add',
+        name: 'Adicionar',
         to: '/servico/add',
       },
       {

@@ -53,8 +53,8 @@ const OrdemServicoAdd = React.lazy(() => import('./views/ordemServico/Add'))
 const OrdemServicoList = React.lazy(() => import('./views/ordemServico/List'))
 
 const CategoriaAdd = React.lazy(() => import('./views/categoria/Add'))
-const ServicoAdd = React.lazy(() => import('./views/servico/Add.js'))
-const ServicoList = React.lazy(() => import('./views/servico/List.js'))
+const ServicoAdd = React.lazy(() => import('./views/servico/Add'))
+const ServicoList = React.lazy(() => import('./views/servico/List'))
 
 const UsuarioAdd = React.lazy(() => import('./views/usuario/Add'))
 const UsuarioListar = React.lazy(() => import('./views/usuario/Listar'))
@@ -91,8 +91,8 @@ const routes = [
   { path: '/cliente/list', name: 'Listar Clientes', element: ClienteList },
   { path: '/fluxoFinanceiro/add', name: 'Adicionar FluxoFinanceiro', element: FluxoFinanceiroAdd },
   { path: '/fluxoFinaceiro/list', name: 'Listar FluxoFinanceiro', element: FluxoFinanceiroList },
-  { path: '/Servico/add', name: 'Adicionar Serviço', element: ServicoAdd},
-  { path: '/Servico/list', name: 'Listar Serviço', element: ServicoList},
+  { path: '/servico/add', name: 'Adicionar Serviço', element: ServicoAdd },
+  { path: '/servico/list', name: 'Listar Serviço', element: ServicoList },
   { path: '/theme', name: 'Theme', element: Colors, exact: true },
   { path: '/theme/colors', name: 'Colors', element: Colors },
   { path: '/theme/typography', name: 'Typography', element: Typography },
