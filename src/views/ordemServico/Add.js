@@ -1,4 +1,7 @@
 import React from 'react'
+import axios from 'axios'
+import CIcon from '@coreui/icons-react'
+import { cilCheck } from '@coreui/icons'
 import {
   CButton,
   CCard,
@@ -14,6 +17,11 @@ import {
 import { DocsExample } from 'src/components'
 
 const AddOrdemServico = () => {
+  const handlerEnviarFormulario = () =>{
+    axios.post('', {    })
+    .then(response => {console.log('Response:')})
+  };
+
   return (
     <CRow>
       <CCol xs={12}>
@@ -24,8 +32,24 @@ const AddOrdemServico = () => {
           <CCardBody>
             <CForm>
               <div className="mb-3">
+                <CFormLabel htmlFor="data">Data</CFormLabel>
+                <CFormInput type="date" id="data" placeholder="Data" />
+              </div>
+
+              <div className="mb-3">
+                <CFormLabel htmlFor="hora">Hora</CFormLabel>
+                <CFormInput type="time" id="hora" placeholder="Hora" />
+              </div>
+
+              <div className="mb-3">
                 <CFormLabel htmlFor="desconto">Desconto</CFormLabel>
                 <CFormInput type="number" id="desconto" placeholder="Desconto" />
+              </div>
+              <div className="mb-3">
+                <CButton color="success" onClick={}>
+                  <CIcon icon={cilCheck} className="me-2"></CIcon>
+                  Salvar
+                </CButton>
               </div>
             </CForm>
           </CCardBody>
