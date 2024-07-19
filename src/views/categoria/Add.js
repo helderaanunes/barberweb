@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import axios from 'axios'
 import {
   CButton,
@@ -19,9 +19,14 @@ import { cilCheck } from '@coreui/icons'
 const FormControl = () => {
   const handlerEnviarFormulario = () => {
     axios.post('http://localhost:8080/categoria', {
-      nome: 'Eletro',
+      nome: nome,
     })
   }
+
+  const [nome, setNome] = useState('');
+  const handleChange = (event) => {
+    setNome(event.target.value);
+  };
 
   return (
     <CRow>
@@ -34,7 +39,7 @@ const FormControl = () => {
             <CForm>
               <div className="mb-3">
                 <CFormLabel htmlFor="nome">Nome</CFormLabel>
-                <CFormInput type="text" id="nome" placeholder="Nome" />
+                <CFormInput type="text" id="nome" placeholder="Nome" onChange={handleChange}  />
               </div>
               <CButton color="primary" variant="outline" onClick={handlerEnviarFormulario}>
                 <CIcon icon={cilCheck} className="me-2"></CIcon>

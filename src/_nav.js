@@ -76,7 +76,7 @@ const _nav = [
       {
         component: CNavItem,
         name: 'Adicionar',
-        to: '/ordemServico/add',
+        to: '/produto/add',
       },
       {
         component: CNavItem,
