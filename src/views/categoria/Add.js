@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import axios from 'axios'
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import {
   CButton,
   CCard,
@@ -8,24 +8,53 @@ import {
   CCol,
   CForm,
   CFormInput,
-  CFormLabel,
-  CFormTextarea,
   CRow,
-} from '@coreui/react'
-import { DocsExample } from 'src/components'
-import CIcon from '@coreui/icons-react'
-import { cilCheck } from '@coreui/icons'
+  CAlert,
+  CCloseButton
+} from '@coreui/react';
+import CIcon from '@coreui/icons-react';
+import { cilCheck } from '@coreui/icons';
 
 const FormControl = () => {
-  const handlerEnviarFormulario = () => {
-    axios.post('http://localhost:8080/categoria', {
-      nome: nome,
-    })
-  }
+  const [formData, setFormData] = useState({
+    nome: ''
+  });
 
-  const [nome, setNome] = useState('');
-  const handleChange = (event) => {
-    setNome(event.target.value);
+  const [message, setMessage] = useState('');
+
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setFormData({
+      ...formData,
+      [id]: value
+    });
+  };
+
+  const handleEnviarFormulario = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post('http://localhost:8080/categoria', formData);
+      console.log('Resposta da API:', response.data);
+      setMessage('Categoria salva com sucesso!');
+      setFormData({ nome: '' }); // Limpa o formulário
+    } catch (error) {
+      console.error('Erro ao enviar formulário:', error);
+      setMessage('Erro ao salvar categoria.');
+    }
+  };
+
+  useEffect(() => {
+    if (message) {
+      const timer = setTimeout(() => {
+        setMessage('');
+      }, 20000); // 20 segundos
+
+      return () => clearTimeout(timer);
+    }
+  }, [message]);
+
+  const handleCloseAlert = () => {
+    setMessage('');
   };
 
   return (
@@ -36,21 +65,36 @@ const FormControl = () => {
             <strong>Adicionar Categoria</strong>
           </CCardHeader>
           <CCardBody>
+            {message && (
+              <CAlert color={message.includes('sucesso') ? 'success' : 'danger'} dismissible>
+                {message}
+                <CCloseButton className="float-end" onClick={handleCloseAlert} />
+              </CAlert>
+            )}
             <CForm>
               <div className="mb-3">
-                <CFormLabel htmlFor="nome">Nome</CFormLabel>
-                <CFormInput type="text" id="nome" placeholder="Nome" onChange={handleChange}  />
+                <CFormInput
+                  type="text"
+                  id="nome"
+                  placeholder="Nome"
+                  value={formData.nome}
+                  onChange={handleChange}
+                />
               </div>
-              <CButton color="primary" variant="outline" onClick={handlerEnviarFormulario}>
+              <CButton
+                color="primary"
+                variant="outline"
+                onClick={handleEnviarFormulario}
+              >
                 <CIcon icon={cilCheck} className="me-2"></CIcon>
-                Enivar
+                Enviar
               </CButton>
             </CForm>
           </CCardBody>
         </CCard>
       </CCol>
     </CRow>
-  )
-}
+  );
+};
 
-export default FormControl
+export default FormControl;
