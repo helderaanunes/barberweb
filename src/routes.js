@@ -88,7 +88,7 @@ const routes = [
   { path: '/produto/Listar', name: 'Listar Produtos', element: ProdutoListar },
 
   { path: '/usuario/add', name: 'Adicionar Usuario', element: UsuarioAdd },
-  { path: '/usuario/listar', name: 'Listar Usuarios', element: UsuarioListar },
+  { path: '/usuario/list', name: 'Listar Usuarios', element: UsuarioListar },
 
   { path: '/agendamento/agenda_add', name: 'Agendar', element: AgendaAdd },
   { path: '/agendamento/agenda_list', name: 'Agenda completa', element: AgendaListar },
