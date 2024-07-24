@@ -57,6 +57,7 @@ const ProdutoListar = React.lazy(() => import('./views/produto/Listar'))
 
 const CategoriaAdd = React.lazy(() => import('./views/categoria/Add'))
 
+
 const ServicoAdd = React.lazy(() => import('./views/servico/Add.js'))
 const ServicoList = React.lazy(() => import('./views/servico/List.js'))
 
@@ -69,8 +70,8 @@ const AgendaListar = React.lazy(() => import('./views/agendamento/AgendaListar')
 const VendaList = React.lazy(() => import('./views/venda/List'))
 const VendaAdd = React.lazy(() => import('./views/venda/Add'))
 const CategoriaList = React.lazy(() => import('./views/categoria/List'))
-const FluxoFinanceiroAdd = React.lazy(() => import('./views/fluxoFinanceiro/Add'))
 const FluxoFinanceiroList = React.lazy(() => import('./views/fluxoFinanceiro/List'))
+const FluxoFinanceiroAdd = React.lazy(() => import('./views/fluxoFinanceiro/Add'))
 const ClienteAdd = React.lazy(() => import('./views/cliente/Add'))
 const ClienteList = React.lazy(() => import('./views/cliente/List'))
 
@@ -81,6 +82,7 @@ const routes = [
   { path: '/ordemServico/list', name: 'Listar Ordem Serviço', element: OrdemServicoList },
 
   { path: '/categoria/list', name: 'Listar Categoria', element: CategoriaList },
+  { path: '/fluxoFinanceiro/list', name: 'Listar Fluxo Financeiro', element: FluxoFinanceiroList },
   { path: '/categoria/add', name: 'Adicionar Categoria', element: CategoriaAdd },
   { path: '/categoria/edit/:id', name: 'Editar Categoria', element: CategoriaAdd }, // Nova rota para edição
 
