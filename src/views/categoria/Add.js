@@ -14,13 +14,28 @@ import {
 } from '@coreui/react';
 import CIcon from '@coreui/icons-react';
 import { cilCheck } from '@coreui/icons';
+import { useParams, useNavigate } from 'react-router-dom';
 
 const FormControl = () => {
-  const [formData, setFormData] = useState({
-    nome: ''
-  });
-
+  const [formData, setFormData] = useState({ nome: '' });
   const [message, setMessage] = useState('');
+  const { id } = useParams();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (id) {
+      const fetchCategoria = async () => {
+        try {
+          const response = await axios.get(`http://localhost:8080/categoria/${id}`);
+          setFormData(response.data);
+        } catch (error) {
+          console.error('Erro ao buscar categoria:', error);
+        }
+      };
+
+      fetchCategoria();
+    }
+  }, [id]);
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -33,10 +48,17 @@ const FormControl = () => {
   const handleEnviarFormulario = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:8080/categoria', formData);
-      console.log('Resposta da API:', response.data);
-      setMessage('Categoria salva com sucesso!');
-      setFormData({ nome: '' }); // Limpa o formulário
+      if (id) {
+        await axios.put(`http://localhost:8080/categoria/${id}`, formData);
+        setMessage('Categoria atualizada com sucesso!');
+      } else {
+        await axios.post('http://localhost:8080/categoria', formData);
+        setMessage('Categoria salva com sucesso!');
+      }
+      setFormData({ nome: '' });
+      setTimeout(() => {
+        navigate('/categoria/list');
+      }, 2000); // Redireciona após 2 segundos
     } catch (error) {
       console.error('Erro ao enviar formulário:', error);
       setMessage('Erro ao salvar categoria.');
@@ -62,7 +84,7 @@ const FormControl = () => {
       <CCol xs={12}>
         <CCard className="mb-4">
           <CCardHeader>
-            <strong>Adicionar Categoria</strong>
+            <strong>{id ? 'Editar Categoria' : 'Adicionar Categoria'}</strong>
           </CCardHeader>
           <CCardBody>
             {message && (
@@ -87,7 +109,7 @@ const FormControl = () => {
                 onClick={handleEnviarFormulario}
               >
                 <CIcon icon={cilCheck} className="me-2"></CIcon>
-                Enviar
+                {id ? 'Atualizar' : 'Enviar'}
               </CButton>
             </CForm>
           </CCardBody>
