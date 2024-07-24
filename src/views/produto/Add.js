@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import {
   CButton,
   CCard,
@@ -7,40 +8,111 @@ import {
   CCol,
   CForm,
   CFormInput,
-  CFormLabel,
-  CFormTextarea,
   CRow,
-} from '@coreui/react'
-import { DocsExample } from 'src/components'
+  CAlert,
+  CCloseButton
+} from '@coreui/react';
+import CIcon from '@coreui/icons-react';
+import { cilCheck } from '@coreui/icons';
 
 const FormControl = () => {
+  const [formData, setFormData] = useState({
+    nome: ''
+  });
+
+  const [message, setMessage] = useState('');
+
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setFormData({
+      ...formData,
+      [id]: value
+    });
+  };
+
+  const handleEnviarFormulario = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post('http://localhost:8080/produto', formData);
+      console.log('Resposta da API:', response.data);
+      setMessage('Produto salva com sucesso!');
+      setFormData({ nome: '' }); // Limpa o formulário
+    } catch (error) {
+      console.error('Erro ao enviar formulário:', error);
+      setMessage('Erro ao salvar Produto.');
+    }
+  };
+
+  useEffect(() => {
+    if (message) {
+      const timer = setTimeout(() => {
+        setMessage('');
+      }, 20000); // 20 segundos
+
+      return () => clearTimeout(timer);
+    }
+  }, [message]);
+
+  const handleCloseAlert = () => {
+    setMessage('');
+  };
+
   return (
     <CRow>
       <CCol xs={12}>
         <CCard className="mb-4">
           <CCardHeader>
-            <strong>Cadastrar Produto</strong>
+            <strong>Adicionar Produto</strong>
           </CCardHeader>
           <CCardBody>
-              <CForm>
-                <div className="mb-3">
-                  <CFormLabel htmlFor="Nome do produto">Produto</CFormLabel>
-                  <CFormInput
-                    type="text"
-                    id="exampleFormControlInput1"
-                    placeholder="name@example.com"
-                  />
-                </div>
-                <div className="mb-3">
-                  <CFormLabel htmlFor="exampleFormControlTextarea1">Example textarea</CFormLabel>
-                  <CFormTextarea id="exampleFormControlTextarea1" rows={3}></CFormTextarea>
-                </div>
-              </CForm>
+            {message && (
+              <CAlert color={message.includes('sucesso') ? 'success' : 'danger'} dismissible>
+                {message}
+                <CCloseButton className="float-end" onClick={handleCloseAlert} />
+              </CAlert>
+            )}
+            <CForm>
+              <div className="mb-3">
+                <CFormInput
+                  type="text"
+                  id="nome"
+                  placeholder="Nome"
+                  value={formData.nome}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="mb-3">
+                <CFormInput
+                  type="text"
+                  id="preco"
+                  placeholder="Preço"
+                  value={formData.preco}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="mb-3">
+                <CFormInput
+                  type="text"
+                  id="descricao"
+                  placeholder="Descrição"
+                  value={formData.descricao}
+                  onChange={handleChange}
+                />
+              </div>
+              <CButton
+                color="primary"
+                variant="outline"
+                onClick={handleEnviarFormulario}
+              >
+                <CIcon icon={cilCheck} className="me-2"></CIcon>
+                Enviar
+              </CButton>
+            </CForm>
           </CCardBody>
         </CCard>
       </CCol>
     </CRow>
-  )
-}
+  );
+};
 
-export default FormControl
+export default FormControl;
