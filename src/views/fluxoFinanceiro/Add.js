@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import {
   CButton,
   CCard,
@@ -7,242 +8,213 @@ import {
   CCol,
   CForm,
   CFormInput,
-  CFormLabel,
-  CFormTextarea,
+  CFormSelect,
+  CFormDate,
   CRow,
-} from '@coreui/react'
-import { DocsExample } from 'src/components'
+  CAlert,
+  CCloseButton
+} from '@coreui/react';
+import CIcon from '@coreui/icons-react';
+import { cilCheck } from '@coreui/icons';
+import { useParams, useNavigate } from 'react-router-dom';
 
-const FluxoFinanceiroAdd = () => {
+const FormControl = () => {
+  const [formData, setFormData] = useState({
+    id: '',
+    descricao: '',
+    fluxo: '',
+    valor: '',
+    situacao: '',
+    dataVencimento: '',
+    dataPagamento: ''
+  });
+  const [message, setMessage] = useState('');
+  const { id } = useParams();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (id) {
+      const fetchCategoria = async () => {
+        try {
+          const response = await axios.get(`http://localhost:8080/fluxoFinanceiro/${id}`);
+          setFormData(response.data);
+        } catch (error) {
+          handleError(error);
+        }
+      };
+
+      fetchCategoria();
+    }
+  }, [id]);
+
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setFormData({
+      ...formData,
+      [id]: value
+    });
+  };
+
+  const validateForm = () => {
+    if (!formData.descricao.trim()) {
+      setMessage('O campo Descrição é obrigatório.');
+      return false;
+    }
+    if (!formData.valor.trim() || isNaN(formData.valor)) {
+      setMessage('O campo Valor deve ser um número válido.');
+      return false;
+    }
+    if (!formData.dataVencimento.trim()) {
+      setMessage('O campo Data de Vencimento é obrigatório.');
+      return false;
+    }
+    if (formData.dataPagamento && new Date(formData.dataPagamento) > new Date(formData.dataVencimento)) {
+      setMessage('A Data de Pagamento não pode ser após a Data de Vencimento.');
+      return false;
+    }
+    return true;
+  };
+
+  const handleError = (error) => {
+    console.error('Erro:', error);
+    if (error.response) {
+      setMessage(`Erro ${error.response.status}: ${error.response.data.message || 'Erro desconhecido'}`);
+    } else if (error.request) {
+      setMessage('Erro de rede: Nenhuma resposta recebida');
+    } else {
+      setMessage(`Erro: ${error.message}`);
+    }
+  };
+
+  const handleEnviarFormulario = async (e) => {
+    e.preventDefault();
+    if (!validateForm()) return;
+
+    try {
+      if (id) {
+        await axios.put(`http://localhost:8080/fluxoFinanceiro/${id}`, formData);
+        setMessage('Fluxo atualizado com sucesso!');
+      } else {
+        await axios.post('http://localhost:8080/fluxoFinanceiro', formData);
+        setMessage('Fluxo salvo com sucesso!');
+      }
+      setFormData({
+        id: '',
+        descricao: '',
+        fluxo: '',
+        valor: '',
+        situacao: '',
+        dataVencimento: '',
+        dataPagamento: ''
+      });
+      setTimeout(() => {
+        navigate('/fluxoFinanceiro/list');
+      }, 2000); // Redireciona após 2 segundos
+    } catch (error) {
+      handleError(error);
+    }
+  };
+
+  useEffect(() => {
+    if (message) {
+      const timer = setTimeout(() => {
+        setMessage('');
+      }, 20000); // 20 segundos
+
+      return () => clearTimeout(timer);
+    }
+  }, [message]);
+
+  const handleCloseAlert = () => {
+    setMessage('');
+  };
+
   return (
     <CRow>
       <CCol xs={12}>
         <CCard className="mb-4">
           <CCardHeader>
-            <strong>React Form Control</strong>
+            <strong>{id ? 'Editar Fluxo Financeiro' : 'Adicionar Fluxo Financeiro'}</strong>
           </CCardHeader>
           <CCardBody>
-            <DocsExample href="forms/form-control">
-              <CForm>
-                <div className="mb-3">
-                  <CFormLabel htmlFor="exampleFormControlInput1">Email address</CFormLabel>
-                  <CFormInput
-                    type="email"
-                    id="exampleFormControlInput1"
-                    placeholder="name@example.com"
-                  />
-                </div>
-                <div className="mb-3">
-                  <CFormLabel htmlFor="exampleFormControlTextarea1">Example textarea</CFormLabel>
-                  <CFormTextarea id="exampleFormControlTextarea1" rows={3}></CFormTextarea>
-                </div>
-              </CForm>
-            </DocsExample>
-          </CCardBody>
-        </CCard>
-      </CCol>
-      <CCol xs={12}>
-        <CCard className="mb-4">
-          <CCardHeader>
-            <strong>React Form Control</strong> <small>Sizing</small>
-          </CCardHeader>
-          <CCardBody>
-            <p className="text-body-secondary small">
-              Set heights using <code>size</code> property like <code>size=&#34;lg&#34;</code> and{' '}
-              <code>size=&#34;sm&#34;</code>.
-            </p>
-            <DocsExample href="forms/form-control#sizing">
-              <CFormInput
-                type="text"
-                size="lg"
-                placeholder="Large input"
-                aria-label="lg input example"
-              />
-              <br />
-              <CFormInput
-                type="text"
-                placeholder="Default input"
-                aria-label="default input example"
-              />
-              <br />
-              <CFormInput
-                type="text"
-                size="sm"
-                placeholder="Small input"
-                aria-label="sm input example"
-              />
-            </DocsExample>
-          </CCardBody>
-        </CCard>
-      </CCol>
-      <CCol xs={12}>
-        <CCard className="mb-4">
-          <CCardHeader>
-            <strong>React Form Control</strong> <small>Disabled</small>
-          </CCardHeader>
-          <CCardBody>
-            <p className="text-body-secondary small">
-              Add the <code>disabled</code> boolean attribute on an input to give it a grayed out
-              appearance and remove pointer events.
-            </p>
-            <DocsExample href="forms/form-control#disabled">
-              <CFormInput
-                type="text"
-                placeholder="Disabled input"
-                aria-label="Disabled input example"
-                disabled
-              />
-              <br />
-              <CFormInput
-                type="text"
-                placeholder="Disabled readonly input"
-                aria-label="Disabled input example"
-                disabled
-                readOnly
-              />
-              <br />
-            </DocsExample>
-          </CCardBody>
-        </CCard>
-      </CCol>
-      <CCol xs={12}>
-        <CCard className="mb-4">
-          <CCardHeader>
-            <strong>React Form Control</strong> <small>Readonly</small>
-          </CCardHeader>
-          <CCardBody>
-            <p className="text-body-secondary small">
-              Add the <code>readOnly</code> boolean attribute on an input to prevent modification of
-              the input&#39;s value. Read-only inputs appear lighter (just like disabled inputs),
-              but retain the standard cursor.
-            </p>
-            <DocsExample href="forms/form-control#readonly">
-              <CFormInput
-                type="text"
-                placeholder="Readonly input here..."
-                aria-label="readonly input example"
-                readOnly
-              />
-            </DocsExample>
-          </CCardBody>
-        </CCard>
-      </CCol>
-      <CCol xs={12}>
-        <CCard className="mb-4">
-          <CCardHeader>
-            <strong>React Form Control</strong> <small>Readonly plain text</small>
-          </CCardHeader>
-          <CCardBody>
-            <p className="text-body-secondary small">
-              If you want to have <code>&lt;input readonly&gt;</code> elements in your form styled
-              as plain text, use the <code>plainText</code> boolean property to remove the default
-              form field styling and preserve the correct margin and padding.
-            </p>
-            <DocsExample href="components/accordion">
-              <CRow className="mb-3">
-                <CFormLabel htmlFor="staticEmail" className="col-sm-2 col-form-label">
-                  Email
-                </CFormLabel>
-                <div className="col-sm-10">
-                  <CFormInput
-                    type="text"
-                    id="staticEmail"
-                    defaultValue="email@example.com"
-                    readOnly
-                    plainText
-                  />
-                </div>
-              </CRow>
-              <CRow className="mb-3">
-                <CFormLabel htmlFor="inputPassword" className="col-sm-2 col-form-label">
-                  Password
-                </CFormLabel>
-                <div className="col-sm-10">
-                  <CFormInput type="password" id="inputPassword" />
-                </div>
-              </CRow>
-            </DocsExample>
-            <DocsExample href="components/accordion">
-              <CForm className="row g-3">
-                <div className="col-auto">
-                  <CFormLabel htmlFor="staticEmail2" className="visually-hidden">
-                    Email
-                  </CFormLabel>
-                  <CFormInput
-                    type="text"
-                    id="staticEmail2"
-                    defaultValue="email@example.com"
-                    readOnly
-                    plainText
-                  />
-                </div>
-                <div className="col-auto">
-                  <CFormLabel htmlFor="inputPassword2" className="visually-hidden">
-                    Password
-                  </CFormLabel>
-                  <CFormInput type="password" id="inputPassword2" placeholder="Password" />
-                </div>
-                <div className="col-auto">
-                  <CButton color="primary" type="submit" className="mb-3">
-                    Confirm identity
-                  </CButton>
-                </div>
-              </CForm>
-            </DocsExample>
-          </CCardBody>
-        </CCard>
-      </CCol>
-      <CCol xs={12}>
-        <CCard className="mb-4">
-          <CCardHeader>
-            <strong>React Form Control</strong> <small>File input</small>
-          </CCardHeader>
-          <CCardBody>
-            <DocsExample href="forms/form-control#file-input">
+            {message && (
+              <CAlert color={message.includes('sucesso') ? 'success' : 'danger'} dismissible>
+                {message}
+                <CCloseButton className="float-end" onClick={handleCloseAlert} />
+              </CAlert>
+            )}
+            <CForm>
               <div className="mb-3">
-                <CFormLabel htmlFor="formFile">Default file input example</CFormLabel>
-                <CFormInput type="file" id="formFile" />
+                <CFormInput
+                  type="text"
+                  id="descricao"
+                  placeholder="Descrição"
+                  value={formData.descricao}
+                  onChange={handleChange}
+                />
               </div>
               <div className="mb-3">
-                <CFormLabel htmlFor="formFileMultiple">Multiple files input example</CFormLabel>
-                <CFormInput type="file" id="formFileMultiple" multiple />
+                <CFormSelect
+                  id="fluxo"
+                  value={formData.fluxo}
+                  onChange={handleChange}
+                >
+                  <option value="">Escolha o fluxo</option>
+                  <option value="entrada">Entrada</option>
+                  <option value="saida">Saída</option>
+                </CFormSelect>
               </div>
               <div className="mb-3">
-                <CFormLabel htmlFor="formFileDisabled">Disabled file input example</CFormLabel>
-                <CFormInput type="file" id="formFileDisabled" disabled />
+                <CFormInput
+                  type="number"
+                  id="valor"
+                  placeholder="Valor"
+                  value={formData.valor}
+                  onChange={handleChange}
+                />
               </div>
               <div className="mb-3">
-                <CFormLabel htmlFor="formFileSm">Small file input example</CFormLabel>
-                <CFormInput type="file" size="sm" id="formFileSm" />
+                <CFormSelect
+                  id="situacao"
+                  value={formData.situacao}
+                  onChange={handleChange}
+                >
+                  <option value="">Escolha a situação</option>
+                  <option value="pago">Pago</option>
+                  <option value="pendente">Pendente</option>
+                  <option value="cancelado">Cancelado</option>
+                </CFormSelect>
               </div>
-              <div>
-                <CFormLabel htmlFor="formFileLg">Large file input example</CFormLabel>
-                <CFormInput type="file" size="lg" id="formFileLg" />
+              <div className="mb-3">
+                <CFormDate
+                  id="dataVencimento"
+                  placeholder="Data de Vencimento"
+                  value={formData.dataVencimento}
+                  onChange={handleChange}
+                />
               </div>
-            </DocsExample>
-          </CCardBody>
-        </CCard>
-      </CCol>
-      <CCol xs={12}>
-        <CCard className="mb-4">
-          <CCardHeader>
-            <strong>React Form Control</strong> <small>Color</small>
-          </CCardHeader>
-          <CCardBody>
-            <DocsExample href="forms/form-control#color">
-              <CFormLabel htmlFor="exampleColorInput">Color picker</CFormLabel>
-              <CFormInput
-                type="color"
-                id="exampleColorInput"
-                defaultValue="#563d7c"
-                title="Choose your color"
-              />
-            </DocsExample>
+              <div className="mb-3">
+                <CFormDate
+                  id="dataPagamento"
+                  placeholder="Data de Pagamento"
+                  value={formData.dataPagamento}
+                  onChange={handleChange}
+                />
+              </div>
+              <CButton
+                color="primary"
+                variant="outline"
+                onClick={handleEnviarFormulario}
+              >
+                <CIcon icon={cilCheck} className="me-2"></CIcon>
+                {id ? 'Atualizar' : 'Enviar'}
+              </CButton>
+            </CForm>
           </CCardBody>
         </CCard>
       </CCol>
     </CRow>
-  )
-}
+  );
+};
 
-export default FluxoFinanceiroAdd
+export default FormControl;
