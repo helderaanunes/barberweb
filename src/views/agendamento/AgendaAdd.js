@@ -8,33 +8,97 @@ import {
   CFormLabel,
   CFormTextarea,
   CRow,
-} from '@coreui/react'
-import React from 'react'
+  CFormSelect
+} from '@coreui/react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
-const FormControl = () => {
-  return (
-    <CRow>
-      <CCol xs={12}>
-        <CCard className="mb-4">
-          <CCardHeader>
-            <strong>Agendar</strong>
-          </CCardHeader>
-          <CCardBody>
-            <CForm>
-              <div className="mb-3">
-                <CFormLabel htmlFor="Nome Completo">Email address</CFormLabel>
-                <CFormInput type="text" id="Nome Completo" placeholder="Nome Completo" />
-              </div>
-              <div className="mb-3">
-                <CFormLabel htmlFor="exampleFormControlTextarea1">Example textarea</CFormLabel>
-                <CFormTextarea id="exampleFormControlTextarea1" rows={3}></CFormTextarea>
-              </div>
-            </CForm>
-          </CCardBody>
-        </CCard>
-      </CCol>
-    </CRow>
-  )
+const Agendar = () => {
+    const [barbeiros, setBarbeiros] = useState([]);
+    const [selectedBarbeiro, setSelectedBarbeiro] = useState('');
+    const [servicos, setServicos] = useState([]);
+    const [selectedServico, setSelectedServico] = useState('');
+
+    useEffect(() => {
+        axios.get('http://localhost:8080/barbeiros')
+            .then(response => {
+                setBarbeiros(response.data);
+            })
+            .catch(error => {
+                console.error('Houve um erro ao buscar os barbeiros!', error);
+            });
+    }, []);
+
+    useEffect(() => {
+        if (selectedBarbeiro) {
+            axios.get(`http://localhost:8080/api/barbeiros/${selectedBarbeiro}/servicos`)
+                .then(response => {
+                    setServicos(response.data);
+                })
+                .catch(error => {
+                    console.error('Houve um erro ao buscar os serviços!', error);
+                });
+        } else {
+            setServicos([]);
+        }
+    }, [selectedBarbeiro]);
+
+    const handleBarbeiroChange = (event) => {
+        setSelectedBarbeiro(event.target.value);
+        setSelectedServico(''); // Resetar o serviço selecionado quando o barbeiro muda
+    };
+
+    const handleServicoChange = (event) => {
+        setSelectedServico(event.target.value);
+    };
+
+    return (
+        <CRow>
+            <CCol xs={12}>
+                <CCard className="mb-4">
+                    <CCardHeader>
+                        <strong>Agendar</strong>
+                    </CCardHeader>
+                    <CCardBody>
+                        <CForm>
+                            <div className="mb-3">
+                                <CFormLabel htmlFor="barbeiro">Barbeiro</CFormLabel>
+                                <CFormSelect id="barbeiro" value={selectedBarbeiro} onChange={handleBarbeiroChange}>
+                                    <option value="">Selecione um barbeiro</option>
+                                    {barbeiros.map(barbeiro => (
+                                        <option key={barbeiro.id} value={barbeiro.id}>
+                                            {barbeiro.nome}
+                                        </option>
+                                    ))}
+                                </CFormSelect>
+                            </div>
+                            {selectedBarbeiro && (
+                                <div className="mb-3">
+                                    <CFormLabel htmlFor="servico">Serviço</CFormLabel>
+                                    <CFormSelect id="servico" value={selectedServico} onChange={handleServicoChange}>
+                                        <option value="">Selecione um serviço</option>
+                                        {servicos.map(servico => (
+                                            <option key={servico.id} value={servico.id}>
+                                                {servico.nome}
+                                            </option>
+                                        ))}
+                                    </CFormSelect>
+                                </div>
+                            )}
+                            <div className="mb-3">
+                                <CFormLabel htmlFor="nomeCompleto">Nome Completo</CFormLabel>
+                                <CFormInput type="text" id="nomeCompleto" placeholder="Nome Completo" />
+                            </div>
+                            <div className="mb-3">
+                                <CFormLabel htmlFor="exampleFormControlTextarea1">Example textarea</CFormLabel>
+                                <CFormTextarea id="exampleFormControlTextarea1" rows={3}></CFormTextarea>
+                            </div>
+                        </CForm>
+                    </CCardBody>
+                </CCard>
+            </CCol>
+        </CRow>
+    )
 }
 
-export default FormControl
+export default Agendar;
