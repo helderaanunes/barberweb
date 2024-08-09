@@ -29,15 +29,13 @@ const FormControl = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const formBody = Object.keys(formData)
-      .map((key) => encodeURIComponent(key) + '=' + encodeURIComponent(formData[key]))
-      .join('&');
+    const formBody = JSON.stringify(formData);
 
     try {
-      const response = await fetch('http://localhost:3000/servico', {
+      const response = await fetch('http://localhost:8080/servico', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
+          'Content-Type': 'application/json',
         },
         body: formBody,
       });
@@ -95,7 +93,7 @@ const FormControl = () => {
               <div className="mb-3">
                 <CFormLabel htmlFor="preco">Preço</CFormLabel>
                 <CFormInput
-                  type="text"
+                  type="number"
                   id="preco"
                   name="preco"
                   placeholder="Digite o preço do serviço"
