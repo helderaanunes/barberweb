@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 import {
   CButton,
   CCard,
@@ -17,48 +17,58 @@ import {
   CModalHeader,
   CModalBody,
   CModalFooter,
-  CModalTitle
-} from '@coreui/react';
-import { useNavigate } from 'react-router-dom';
+  CModalTitle,
+} from '@coreui/react'
+import { useNavigate } from 'react-router-dom'
 
 const Tables = () => {
-  const [categorias, setCategorias] = useState([]);
-  const [modalVisible, setModalVisible] = useState(false);
-  const [categoriaToDelete, setCategoriaToDelete] = useState(null);
-  const navigate = useNavigate();
+  const [categorias, setCategorias] = useState([])
+  const [modalVisible, setModalVisible] = useState(false)
+  const [categoriaToDelete, setCategoriaToDelete] = useState(null)
+  const navigate = useNavigate()
 
   useEffect(() => {
     const fetchCategorias = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/categoria');
-        setCategorias(response.data);
+        const response = await axios.get('http://localhost:8080/categoria')
+        setCategorias(response.data)
       } catch (error) {
-        console.error('Erro ao buscar categorias:', error);
+        console.error('Erro ao buscar categorias:', error)
       }
-    };
+    }
 
-    fetchCategorias();
-  }, []);
+    fetchCategorias()
+  }, [])
 
   const handleEdit = (id) => {
-    navigate(`/categoria/edit/${id}`);
-  };
+    navigate(`/categoria/edit/${id}`)
+  }
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`http://localhost:8080/categoria/${categoriaToDelete}`);
-      setCategorias(categorias.filter(categoria => categoria.id !== categoriaToDelete));
-      setModalVisible(false);
-      setCategoriaToDelete(null);
+      await axios.delete(`http://localhost:8080/categoria/${categoriaToDelete}`)
+      setCategorias(categorias.filter((categoria) => categoria.id !== categoriaToDelete))
+      setModalVisible(false)
+      setCategoriaToDelete(null)
     } catch (error) {
-      console.error('Erro ao remover categoria:', error);
+
+      setModalVisible(false)
+      setCategoriaToDelete(null)
+
+      if (error.response && error.response.status === 409) {
+        // Exibe a mensagem de erro retornada pelo backend
+        alert(error.response.data)
+      } else {
+        console.error('Erro ao remover categoria:', error)
+        alert('Ocorreu um erro ao tentar excluir a categoria')
+      }
     }
-  };
+  }
 
   const confirmDelete = (id) => {
-    setCategoriaToDelete(id);
-    setModalVisible(true);
-  };
+    setCategoriaToDelete(id)
+    setModalVisible(true)
+  }
 
   return (
     <CRow>
@@ -82,8 +92,12 @@ const Tables = () => {
                     <CTableHeaderCell scope="row">{index + 1}</CTableHeaderCell>
                     <CTableDataCell>{categoria.nome}</CTableDataCell>
                     <CTableDataCell>
-                      <CButton color="info" size="sm" onClick={() => handleEdit(categoria.id)}>Editar</CButton>{' '}
-                      <CButton color="danger" size="sm" onClick={() => confirmDelete(categoria.id)}>Remover</CButton>
+                      <CButton color="info" size="sm" onClick={() => handleEdit(categoria.id)}>
+                        Editar
+                      </CButton>{' '}
+                      <CButton color="danger" size="sm" onClick={() => confirmDelete(categoria.id)}>
+                        Remover
+                      </CButton>
                     </CTableDataCell>
                   </CTableRow>
                 ))}
@@ -97,9 +111,7 @@ const Tables = () => {
         <CModalHeader>
           <CModalTitle>Confirmar Remoção</CModalTitle>
         </CModalHeader>
-        <CModalBody>
-          Tem certeza de que deseja remover esta categoria?
-        </CModalBody>
+        <CModalBody>Tem certeza de que deseja remover esta categoria?</CModalBody>
         <CModalFooter>
           <CButton color="secondary" onClick={() => setModalVisible(false)}>
             Cancelar
@@ -110,7 +122,7 @@ const Tables = () => {
         </CModalFooter>
       </CModal>
     </CRow>
-  );
-};
+  )
+}
 
-export default Tables;
+export default Tables
