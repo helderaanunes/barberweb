@@ -103,6 +103,7 @@ const routes = [
   { path: '/fluxoFinanceiro/add', name: 'Adicionar FluxoFinanceiro', element: FluxoFinanceiroAdd },
   { path: '/fluxoFinaceiro/list', name: 'Listar FluxoFinanceiro', element: FluxoFinanceiroList },
   { path: '/Servico/add', name: 'Adicionar Serviço', element: ServicoAdd },
+  { path: '/servico/edit/:id', name: 'Editar Serviço', element: ServicoAdd },
   { path: '/Servico/list', name: 'Listar Serviço', element: ServicoList },
   { path: '/theme', name: 'Theme', element: Colors, exact: true },
   { path: '/theme/colors', name: 'Colors', element: Colors },

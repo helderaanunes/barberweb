@@ -10,21 +10,37 @@ import {
   CFormTextarea,
   CRow,
 } from '@coreui/react';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
-const FormControl = () => {
+const ServicoAdd = () => {
+  const location = useLocation(); // Hook para acessar o estado passado
+  const navigate = useNavigate(); // Hook de navegação
+  const service = location.state?.service; // Obtém o serviço do estado passado
+
   const [formData, setFormData] = useState({
     nome: '',
     descricao: '',
     preco: '',
   });
 
+  useEffect(() => {
+    if (service) {
+      // Se houver um serviço, preenche o formulário com os dados desse serviço
+      setFormData({
+        nome: service.nome,
+        descricao: service.descricao,
+        preco: service.preco,
+      });
+    }
+  }, [service]);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
+    setFormData((prev) => ({
+      ...prev,
       [name]: value,
-    });
+    }));
   };
 
   const handleSubmit = async (e) => {
@@ -32,8 +48,13 @@ const FormControl = () => {
     const formBody = JSON.stringify(formData);
 
     try {
-      const response = await fetch('http://localhost:8080/servico', {
-        method: 'POST',
+      const method = service ? 'PUT' : 'POST'; // Define o método HTTP com base na existência do serviço
+      const url = service
+        ? `http://localhost:8080/servico/${service.id}`
+        : 'http://localhost:8080/servico';
+
+      const response = await fetch(url, {
+        method,
         headers: {
           'Content-Type': 'application/json',
         },
@@ -42,18 +63,14 @@ const FormControl = () => {
 
       if (!response.ok) {
         const errorData = await response.text();
-        throw new Error(errorData || 'Erro ao cadastrar o serviço.');
+        throw new Error(errorData || 'Erro ao salvar o serviço.');
       }
 
-      alert('Serviço cadastrado com sucesso!');
-      setFormData({
-        nome: '',
-        descricao: '',
-        preco: '',
-      });
+      alert('Serviço salvo com sucesso!');
+      navigate('/Servico/list'); // Redireciona para a lista de serviços após salvar
     } catch (error) {
       console.error('Erro:', error);
-      alert(`Erro ao cadastrar o serviço: ${error.message}`);
+      alert(`Erro ao salvar o serviço: ${error.message}`);
     }
   };
 
@@ -62,7 +79,7 @@ const FormControl = () => {
       <CCol xs={12}>
         <CCard className="mb-4">
           <CCardHeader>
-            <strong>Cadastro de Serviço</strong>
+            <strong>{service ? 'Editar' : 'Adicionar'} Serviço</strong>
           </CCardHeader>
           <CCardBody>
             <CForm onSubmit={handleSubmit}>
@@ -103,7 +120,14 @@ const FormControl = () => {
                 />
               </div>
               <CButton type="submit" color="primary">
-                Salvar
+                {service ? 'Salvar Alterações' : 'Adicionar Serviço'}
+              </CButton>
+              <CButton
+                color="secondary"
+                onClick={() => navigate('/Servico/list')}
+                className="ms-2"
+              >
+                Cancelar
               </CButton>
             </CForm>
           </CCardBody>
@@ -113,4 +137,4 @@ const FormControl = () => {
   );
 };
 
-export default FormControl;
+export default ServicoAdd;
