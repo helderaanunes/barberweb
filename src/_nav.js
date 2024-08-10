@@ -65,6 +65,11 @@ const _nav = [
         name: 'Listar',
         to: '/cliente/list',
       },
+      {
+        component: CNavItem,
+        name: 'Dashboard',
+        to: '/cliente/dashboard',
+      },
     ],
   },
   {
@@ -102,6 +107,12 @@ const _nav = [
         name: 'Listar',
 
         to: '/categoria/list',
+      },
+      {
+        component: CNavItem,
+        name: 'Dashboard',
+
+        to: '/categoria/dashboard',
       },
     ],
   },
@@ -141,24 +152,7 @@ const _nav = [
       },
     ],
   },
-  {
-    component: CNavGroup,
-    name: 'Categoria',
-    to: '/categoria',
-    icon: <CIcon icon={cilStar} customClassName="nav-icon" />,
-    items: [
-      {
-        component: CNavItem,
-        name: 'Adicionar',
-        to: '/categoria/add',
-      },
-      {
-        component: CNavItem,
-        name: 'Listar',
-        to: '/categoria/list',
-      },
-    ],
-  },
+
   {
     component: CNavGroup,
     name: 'Usuario',

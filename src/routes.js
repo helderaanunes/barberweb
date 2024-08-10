@@ -1,5 +1,5 @@
 import React from 'react'
-
+const DashboardCliente = React.lazy(() => import('./views/cliente/Dashboard'))
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
 const Colors = React.lazy(() => import('./views/theme/colors/Colors'))
 const Typography = React.lazy(() => import('./views/theme/typography/Typography'))
@@ -56,6 +56,7 @@ const ProdutoAdd = React.lazy(() => import('./views/produto/Add'))
 const ProdutoListar = React.lazy(() => import('./views/produto/Listar'))
 
 const CategoriaAdd = React.lazy(() => import('./views/categoria/Add'))
+const CategoriaDashboard = React.lazy(() => import('./views/categoria/Dashboard'))
 
 
 const ServicoAdd = React.lazy(() => import('./views/servico/Add.js'))
@@ -85,11 +86,13 @@ const routes = [
   { path: '/fluxoFinanceiro/list', name: 'Listar Fluxo Financeiro', element: FluxoFinanceiroList },
   { path: '/fluxoFinanceiro/edit/:id', name: 'Editar Fluxo Financeiro', element: FluxoFinanceiroAdd }, // Nova rota para edição
   { path: '/categoria/add', name: 'Adicionar Categoria', element: CategoriaAdd },
+  { path: '/categoria/dashboard', name: 'Dashboard Categoria', element: CategoriaDashboard },
   { path: '/categoria/edit/:id', name: 'Editar Categoria', element: CategoriaAdd }, // Nova rota para edição
 
 
   { path: '/produto/Add', name: 'Adicionar Produto', element: ProdutoAdd },
   { path: '/produto/Listar', name: 'Listar Produtos', element: ProdutoListar },
+  { path: '/produto/edit/:id', name: 'Editar Produto', element: ProdutoAdd }, // Nova rota para edição
 
   { path: '/usuario/add', name: 'Adicionar Usuario', element: UsuarioAdd },
   { path: '/usuario/list', name: 'Listar Usuarios', element: UsuarioListar },
@@ -100,7 +103,7 @@ const routes = [
   { path: '/venda/Add', name: 'Adicionar Venda', element: VendaAdd },
   { path: '/venda/List', name: 'Listar Vendas', element: VendaList },
   { path: '/cliente/add', name: 'Adicionar Cliente', element: ClienteAdd },
-
+  { path: '/cliente/dashboard', name: 'Dashboard Cliente', element: DashboardCliente },
   { path: '/cliente/list', name: 'Listar Clientes', element: ClienteList },
   { path: '/fluxoFinanceiro/add', name: 'Adicionar FluxoFinanceiro', element: FluxoFinanceiroAdd },
   { path: '/fluxoFinaceiro/list', name: 'Listar FluxoFinanceiro', element: FluxoFinanceiroList },

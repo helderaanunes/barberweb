@@ -1,3 +1,7 @@
+
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+
 import {
   CButton,
   CCard,
@@ -11,36 +15,51 @@ import {
   CTableHead,
   CTableHeaderCell,
   CTableRow,
+  CModal,
+  CModalHeader,
+  CModalBody,
+  CModalFooter,
+  CModalTitle
 } from '@coreui/react';
-import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const Tables = () => {
-  const [services, setServices] = useState([]);
-  const navigate = useNavigate(); // Hook de navegação
+  const [servicos, setservicos] = useState([]);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [servicoToDelete, setservicoToDelete] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    // Fetch services from API on component mount
-    const fetchServices = async () => {
+    const fetchservicos = async () => {
       try {
-        const response = await fetch('http://localhost:8080/servico');
-        if (!response.ok) {
-          throw new Error('Erro ao buscar serviços.');
-        }
-        const data = await response.json();
-        setServices(data);
+        const response = await axios.get('http://localhost:8080/servico');
+        setservicos(response.data);
       } catch (error) {
-        console.error('Erro:', error);
-        alert(`Erro ao buscar serviços: ${error.message}`);
+        console.error('Erro ao buscar servicos:', error);
       }
     };
 
-    fetchServices();
+    fetchservicos();
   }, []);
 
-  const handleEdit = (service) => {
-    // Redireciona para a página de adicionar/editar serviço e passa os dados do serviço como estado
-    navigate('/Servico/add', { state: { service } });
+  const handleEdit = (id) => {
+    navigate(`/servico/edit/${id}`);
+  };
+
+  const handleDelete = async () => {
+    try {
+      await axios.delete(`http://localhost:8080/servico/${servicoToDelete}`);
+      setservicos(servicos.filter(servico => servico.id !== servicoToDelete));
+      setModalVisible(false);
+      setservicoToDelete(null);
+    } catch (error) {
+      console.error('Erro ao remover servico:', error);
+    }
+  };
+
+  const confirmDelete = (id) => {
+    setservicoToDelete(id);
+    setModalVisible(true);
   };
 
   return (
@@ -48,34 +67,26 @@ const Tables = () => {
       <CCol xs={12}>
         <CCard className="mb-4">
           <CCardHeader>
-            <strong>Serviços</strong> <small>Lista de Serviços</small>
+            <strong>Listar servicos</strong>
           </CCardHeader>
           <CCardBody>
-            <CTable>
+            <CTable striped>
               <CTableHead>
                 <CTableRow>
-                  <CTableHeaderCell scope="col">ID</CTableHeaderCell>
                   <CTableHeaderCell scope="col">Nome</CTableHeaderCell>
-                  <CTableHeaderCell scope="col">Descrição</CTableHeaderCell>
                   <CTableHeaderCell scope="col">Preço</CTableHeaderCell>
-                  <CTableHeaderCell scope="col">Ações</CTableHeaderCell>
+                  <CTableHeaderCell scope="col">Tempo</CTableHeaderCell>
                 </CTableRow>
               </CTableHead>
               <CTableBody>
-                {services.map((service) => (
-                  <CTableRow key={service.id}>
-                    <CTableHeaderCell scope="row">{service.id}</CTableHeaderCell>
-                    <CTableDataCell>{service.nome}</CTableDataCell>
-                    <CTableDataCell>{service.descricao}</CTableDataCell>
-                    <CTableDataCell>{service.preco}</CTableDataCell>
+                {servicos.map((servico, index) => (
+                  <CTableRow key={servico.id}>
+                    <CTableDataCell>{servico.nome}</CTableDataCell>
+                    <CTableDataCell>{servico.preco} R$</CTableDataCell>
+                    <CTableDataCell>{servico.tempo} mins</CTableDataCell>
                     <CTableDataCell>
-                      <CButton
-                        color="primary"
-                        onClick={() => handleEdit(service)}
-                      >
-                        Editar
-                      </CButton>
-                      {/* Aqui você pode adicionar um botão de remover */}
+                      <CButton color="info" size="sm" onClick={() => handleEdit(servico.id)}>Editar</CButton>{' '}
+                      <CButton color="danger" size="sm" onClick={() => confirmDelete(servico.id)}>Remover</CButton>
                     </CTableDataCell>
                   </CTableRow>
                 ))}
@@ -84,6 +95,22 @@ const Tables = () => {
           </CCardBody>
         </CCard>
       </CCol>
+      <CModal visible={modalVisible} onClose={() => setModalVisible(false)}>
+        <CModalHeader>
+          <CModalTitle>Confirmar Remoção</CModalTitle>
+        </CModalHeader>
+        <CModalBody>
+          Tem certeza de que deseja remover esta servico?
+        </CModalBody>
+        <CModalFooter>
+          <CButton color="secondary" onClick={() => setModalVisible(false)}>
+            Cancelar
+          </CButton>
+          <CButton color="danger" onClick={handleDelete}>
+            Remover
+          </CButton>
+        </CModalFooter>
+      </CModal>
     </CRow>
   );
 };
