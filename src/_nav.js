@@ -65,6 +65,11 @@ const _nav = [
         name: 'Listar',
         to: '/cliente/list',
       },
+      {
+        component: CNavItem,
+        name: 'Dashboard',
+        to: '/cliente/dashboard',
+      },
     ],
   },
   {
