@@ -90,6 +90,7 @@ const routes = [
 
   { path: '/produto/Add', name: 'Adicionar Produto', element: ProdutoAdd },
   { path: '/produto/Listar', name: 'Listar Produtos', element: ProdutoListar },
+  { path: '/produto/edit/:id', name: 'Editar Produto', element: ProdutoAdd }, // Nova rota para edição
 
   { path: '/usuario/add', name: 'Adicionar Usuario', element: UsuarioAdd },
   { path: '/usuario/list', name: 'Listar Usuarios', element: UsuarioListar },
