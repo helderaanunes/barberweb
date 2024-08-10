@@ -30,7 +30,7 @@ const FluxoFinanceiroTable = () => {
   useEffect(() => {
     const fetchFluxos = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/fluxoFinanceiro');
+        const response = await axios.get('http://localhost:8080/api/fluxo-financeiro');
         setFluxos(response.data);
       } catch (error) {
         console.error('Erro ao buscar fluxos financeiros:', error);
@@ -46,7 +46,7 @@ const FluxoFinanceiroTable = () => {
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`http://localhost:8080/fluxofinanceiro/${fluxoToDelete}`);
+      await axios.delete(`http://localhost:8080/api/fluxo-financeiro/${fluxoToDelete}`);
       setFluxos(fluxos.filter(fluxo => fluxo.id !== fluxoToDelete));
       setModalVisible(false);
       setFluxoToDelete(null);

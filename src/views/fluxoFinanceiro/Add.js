@@ -9,7 +9,6 @@ import {
   CForm,
   CFormInput,
   CFormSelect,
-  CFormDate,
   CRow,
   CAlert,
   CCloseButton
@@ -34,16 +33,16 @@ const FormControl = () => {
 
   useEffect(() => {
     if (id) {
-      const fetchCategoria = async () => {
+      const fetchData = async () => {
         try {
-          const response = await axios.get(`http://localhost:8080/fluxoFinanceiro/${id}`);
+          const response = await axios.get(`http://localhost:8080/api/fluxo-financeiro/${id}`);
           setFormData(response.data);
         } catch (error) {
           handleError(error);
         }
       };
 
-      fetchCategoria();
+      fetchData();
     }
   }, [id]);
 
@@ -60,7 +59,7 @@ const FormControl = () => {
       setMessage('O campo Descrição é obrigatório.');
       return false;
     }
-    if (!formData.valor.trim() || isNaN(formData.valor)) {
+    if (!formData.valor || isNaN(formData.valor)) {
       setMessage('O campo Valor deve ser um número válido.');
       return false;
     }
@@ -92,10 +91,10 @@ const FormControl = () => {
 
     try {
       if (id) {
-        await axios.put(`http://localhost:8080/fluxoFinanceiro/${id}`, formData);
+        await axios.put(`http://localhost:8080/api/fluxo-financeiro/${id}`, formData);
         setMessage('Fluxo atualizado com sucesso!');
       } else {
-        await axios.post('http://localhost:8080/fluxoFinanceiro', formData);
+        await axios.post('http://localhost:8080/api/fluxo-financeiro', formData);
         setMessage('Fluxo salvo com sucesso!');
       }
       setFormData({
@@ -186,7 +185,8 @@ const FormControl = () => {
                 </CFormSelect>
               </div>
               <div className="mb-3">
-                <CFormDate
+                <CFormInput
+                  type="date"
                   id="dataVencimento"
                   placeholder="Data de Vencimento"
                   value={formData.dataVencimento}
@@ -194,7 +194,8 @@ const FormControl = () => {
                 />
               </div>
               <div className="mb-3">
-                <CFormDate
+                <CFormInput
+                  type="date"
                   id="dataPagamento"
                   placeholder="Data de Pagamento"
                   value={formData.dataPagamento}

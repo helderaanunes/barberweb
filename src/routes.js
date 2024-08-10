@@ -83,8 +83,10 @@ const routes = [
 
   { path: '/categoria/list', name: 'Listar Categoria', element: CategoriaList },
   { path: '/fluxoFinanceiro/list', name: 'Listar Fluxo Financeiro', element: FluxoFinanceiroList },
+  { path: '/fluxoFinanceiro/edit/:id', name: 'Editar Fluxo Financeiro', element: FluxoFinanceiroAdd }, // Nova rota para edição
   { path: '/categoria/add', name: 'Adicionar Categoria', element: CategoriaAdd },
   { path: '/categoria/edit/:id', name: 'Editar Categoria', element: CategoriaAdd }, // Nova rota para edição
+
 
   { path: '/produto/Add', name: 'Adicionar Produto', element: ProdutoAdd },
   { path: '/produto/Listar', name: 'Listar Produtos', element: ProdutoListar },
