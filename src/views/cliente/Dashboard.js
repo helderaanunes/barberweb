@@ -35,6 +35,7 @@ const ClienteList = () => {
     fetchClientes();
   }, []);
 
+
   return (
     <CRow>
       <CCol xs={12}>
@@ -61,6 +62,34 @@ const ClienteList = () => {
             </CTable>
           </CCardBody>
         </CCard>
+        
+        
+        <CCard className="mb-4">
+          <CCardHeader>
+            <strong>Clientes</strong> <small>Próximos Aniversariantes (até 30 dias)</small>
+          </CCardHeader>
+          <CCardBody>
+            <CTable>
+              <CTableHead>
+                <CTableRow>
+                  <CTableHeaderCell scope="col">Nome do Cliente</CTableHeaderCell>
+                  <CTableHeaderCell scope="col">Data de Nascimento</CTableHeaderCell>
+                </CTableRow>
+              </CTableHead>
+              <CTableBody>
+                {clientes.map((cliente, index) => (
+                  <CTableRow key={index}>
+                    <CTableDataCell>{cliente.nome}</CTableDataCell>
+                    <CTableDataCell>
+                      {format(new Date(cliente.dataNascimento), 'dd/MM/yyyy')}
+                    </CTableDataCell>
+                  </CTableRow>
+                ))}
+              </CTableBody>
+            </CTable>
+          </CCardBody>
+        </CCard>
+        
       </CCol>
     </CRow>
   );
