@@ -145,10 +145,16 @@ const _nav = [
         name: 'Add',
         to: '/servico/add',
       },
+
       {
         component: CNavItem,
         name: 'Listar',
         to: '/servico/list',
+      },
+      {
+        component: CNavItem,
+        name: 'Dashboard',
+        to: '/servico/dashboard',
       },
     ],
   },

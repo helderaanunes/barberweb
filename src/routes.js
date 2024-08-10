@@ -1,5 +1,6 @@
 import React from 'react'
 const DashboardCliente = React.lazy(() => import('./views/cliente/Dashboard'))
+const DashboardServico = React.lazy(() => import('./views/servico/Dashboard'))
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
 const Colors = React.lazy(() => import('./views/theme/colors/Colors'))
 const Typography = React.lazy(() => import('./views/theme/typography/Typography'))
@@ -107,6 +108,7 @@ const routes = [
   { path: '/fluxoFinaceiro/list', name: 'Listar FluxoFinanceiro', element: FluxoFinanceiroList },
   { path: '/Servico/add', name: 'Adicionar Serviço', element: ServicoAdd },
   { path: '/servico/edit/:id', name: 'Editar Serviço', element: ServicoAdd },
+  { path: '/servico/dashboard', name: 'Dashboard Serviços', element: DashboardServico },
   { path: '/Servico/list', name: 'Listar Serviço', element: ServicoList },
   { path: '/theme', name: 'Theme', element: Colors, exact: true },
   { path: '/theme/colors', name: 'Colors', element: Colors },
