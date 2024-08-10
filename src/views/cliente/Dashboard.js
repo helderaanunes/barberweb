@@ -78,7 +78,8 @@ const ClienteList = () => {
               </CTableHead>
               <CTableBody>
                 {clientes.map((cliente, index) => (
-                  <CTableRow key={index}>
+                  <CTableRow key={cliente.id}>
+                    <CTableHeaderCell scope="row">{index + 1}</CTableHeaderCell>
                     <CTableDataCell>{cliente.nome}</CTableDataCell>
                     <CTableDataCell>
                       {format(new Date(cliente.dataNascimento), 'dd/MM/yyyy')}
@@ -89,7 +90,31 @@ const ClienteList = () => {
             </CTable>
           </CCardBody>
         </CCard>
-        
+
+        <CCard className>
+          <CCardHeader>
+            <strong>Clientes</strong> <small>Com Mais Agendamentos</small>
+          </CCardHeader>
+          <CCardBody>
+            <CTable>
+              <CTableHead>
+                <CTableRow>
+                  <CTableHeaderCell scope="col">Nome do Cliente</CTableHeaderCell>
+                  <CTableHeaderCell scope="col">Número de Agendamentos</CTableHeaderCell>
+                </CTableRow>
+              </CTableHead>
+              <CTableBody>
+                {clientes.map((cliente, index) => (
+                  <CTableRow key={index}>
+                    <CTableDataCell>{cliente.nome}</CTableDataCell>
+                    <CTableDataCell>{cliente.numeroAgendamentos}</CTableDataCell>
+                  </CTableRow>
+                ))}
+              </CTableBody>
+            </CTable>
+          </CCardBody>
+        </CCard>
+
       </CCol>
     </CRow>
   );
