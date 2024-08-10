@@ -56,6 +56,7 @@ const ProdutoAdd = React.lazy(() => import('./views/produto/Add'))
 const ProdutoListar = React.lazy(() => import('./views/produto/Listar'))
 
 const CategoriaAdd = React.lazy(() => import('./views/categoria/Add'))
+const CategoriaDashboard = React.lazy(() => import('./views/categoria/Dashboard'))
 
 
 const ServicoAdd = React.lazy(() => import('./views/servico/Add.js'))
@@ -84,6 +85,7 @@ const routes = [
   { path: '/categoria/list', name: 'Listar Categoria', element: CategoriaList },
   { path: '/fluxoFinanceiro/list', name: 'Listar Fluxo Financeiro', element: FluxoFinanceiroList },
   { path: '/categoria/add', name: 'Adicionar Categoria', element: CategoriaAdd },
+  { path: '/categoria/dashboard', name: 'Dashboard Categoria', element: CategoriaDashboard },
   { path: '/categoria/edit/:id', name: 'Editar Categoria', element: CategoriaAdd }, // Nova rota para edição
 
   { path: '/produto/Add', name: 'Adicionar Produto', element: ProdutoAdd },
