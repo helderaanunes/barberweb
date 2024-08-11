@@ -13,6 +13,7 @@ import {
   CTableHeaderCell,
   CTableRow,
 } from '@coreui/react'
+import { Link } from 'react-router-dom'
 
 const ListarServicos = () => {
   const [servicos, setServicos] = useState([])
@@ -69,6 +70,7 @@ const ListarServicos = () => {
                   <CTableHeaderCell scope="col">Data</CTableHeaderCell>
                   <CTableHeaderCell scope="col">Hora</CTableHeaderCell>
                   <CTableHeaderCell scope="col">Desconto</CTableHeaderCell>
+                  <CTableHeaderCell scope="col">Agendamento</CTableHeaderCell>
                 </CTableRow>
               </CTableHead>
               <CTableBody>
@@ -79,6 +81,11 @@ const ListarServicos = () => {
                     <CTableDataCell>{formatarData(servico.data)}</CTableDataCell>
                     <CTableDataCell>{formatarHora(servico.hora)}</CTableDataCell>
                     <CTableDataCell>{formatarDesconto(servico.desconto)}</CTableDataCell>
+                    <CTableDataCell>
+                      <Link to={`/agendamento/${servico.agendamentoId}`}>
+                        Ver detalhes
+                      </Link>
+                    </CTableDataCell>
                   </CTableRow>
                 ))}
               </CTableBody>
